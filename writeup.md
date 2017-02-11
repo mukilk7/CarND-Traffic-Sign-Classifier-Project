@@ -186,10 +186,12 @@ The code for making predictions on my final model is located in the 16th cell of
 
 ###4. Discussion and Scope for Improvement
 
-* Data Augmentation - Clearly creating more images from the existing ones by transforming them (e.g. change pixel intensity, translating pixels etc.) would have helped with properly classifying underrepresented sign types.
+* *Data Augmentation* - Clearly creating more images from the existing ones by transforming them (e.g. change pixel intensity, translating pixels etc.) would have helped with properly classifying underrepresented sign types.
 
-* Neural Network Architecture from LeCun's paper - The architecture from the paper where the input is branched out and fed directly to a fully connected layer, so that low level features are also part of the final classification process would have improved the accuracy as well.
+* *Neural Network Architecture from LeCun's paper* - The architecture from the paper where the input is branched out and fed directly to a fully connected layer, so that low level features are also part of the final classification process would have improved the accuracy as well.
 
-* Regenerating Training, Validation and Testing sets - As mentioned previously, the validation set choice was not ideal in terms of diversity. I could have downloaded the original dataset from the source website and re-created all the sets used to train, validate and test the model.
+* *Regenerating Training, Validation and Testing sets* - As mentioned previously, the validation set choice was not ideal in terms of diversity. I could have downloaded the original dataset from the source website and re-created all the sets used to train, validate and test the model.
+
+* *Incorporating Color Information* - Some of the errors on the test set or new images may have been avoided if I had included the color information as part of the input training set. The right way to encode color information while minimizing input noise could also be another source of improving classification accuracy.
 
 The options for tuning and improving the accuracy were plenty but I stopped in order to focus on the next project after I understood properly the performance of the model and factors that affected its accuracy.
