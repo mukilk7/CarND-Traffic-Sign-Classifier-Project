@@ -20,6 +20,7 @@ To meet specifications, the following have been generated:
 * the Ipython notebook with the code - [Traffic_Sign_Classifier.ipynb](https://github.com/mukilk7/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 * the code exported as an html file - [report.html](https://github.com/mukilk7/CarND-Traffic-Sign-Classifier-Project/blob/master/report.html) or [report.pdf](https://github.com/mukilk7/CarND-Traffic-Sign-Classifier-Project/blob/master/report.pdf)
 * a writeup report either as a markdown or pdf file  - [writeup.md](https://github.com/mukilk7/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup.md)
+* new images collected from the web - [new-signs](https://github.com/mukilk7/CarND-Traffic-Sign-Classifier-Project/tree/master/new-signs)
 
 ### Dependencies
 This lab requires:
