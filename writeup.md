@@ -97,11 +97,11 @@ My final model consisted of the following layers:
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Input         		| 32x32x1 RGB image   							| 
-| Convolution     	| 1x1 stride, VALID padding, outputs 28x28x6 	|
+| Convolution     	| 5x5x1 filter, 1x1 stride, VALID padding, outputs 28x28x6 	|
 | RELU					|												|
 | DROPOUT					|  keep_prob 0.75								|
 | Max pooling	      	| 2x2 stride,  outputs 14x14x6 				|
-| Convolution	    | 1x1 stride, VALID padding, outputs 10x10x16      									|
+| Convolution	    | 5x5x6 filter, 1x1 stride, VALID padding, outputs 10x10x16      									|
 | RELU					|												|
 | DROPOUT					|  keep_prob 0.75								|
 | Max pooling	      	| 2x2 stride,  outputs 5x5x16 				|
@@ -140,13 +140,24 @@ I first started with the LeNet5 architecture and parameter values from the handw
 *Subpar Validation Set* - One problem that I realized after reading LeCun's paper above was that my validation set selection was not ideal. The GTSRB dataset images are derived from frames of 1 second video clips. Therefore there are multiple frames of the same image under the same environmental conditions in the testing set. In the selection of the validation set, a random shuffling and sampling of images from the training set will end up including multiple images from the same 1 second video. This does not help with the diversity required to properly validate learning. Unfortunately, the pickled training set data does not include information on which 1 second video an image was extracted so that I could choose 1 image from each video into the training set. Therefore, there is an inherent limit to how much accuracy we can achieve given the starter project assets.
 
 * How was the architecture adjusted and why was it adjusted? 
+
+Please see the answer for the next question.
+
 * Which parameters were tuned? How were they adjusted and why?
 
 *Preventing Overfitting and Underfitting* - The primary modifications I did was to introduce the idea of dropout and set the number of training epochs appropriately. I use two distinct dropout values for the convolutional and fully connected layers. For the convolutional layer, I use a dropout probability of 0.25 (or equivalently, keep probability of 0.75) so that most of the input and low dimensional features are passed through to the network to learn. If I had used a higher dropout here, I would have risked underfitting the training data. For the fully connected layers, I used a higher dropout probability of 0.5 in order to prevent overfitting and aid in the network learning alternate representations of higher dimensional features for the same traffic sign. After a lot of trial and error, this approach worked well for me. Also, I played around with the epoch value. I noticed that if I set the epoch value very high it was causing my network to overfit the training dataset. The increase in accuracy on the validation set for higher numbered iterations wasn't that much but the impact the resulting model had on the testing set accuracy was a pretty significant drop. For example, with 70 epochs I was able to get close to 99% accuracy on the validation set but the accuracy on the testing set dropped down to 90%. Therefore, I set the number of epochs to 25 which achieved about 98% accuracy on the validation set without risking overfitting the training data. I also had to use a batch size of 128 to keep the memory usage on my machine low.
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-This question has been answered above on model selection and parameter tuning. As to why a convolution layer works well for this problem, it is because of translation invariance - as covered in the lesson. Features that uniquely describe a traffic sign may appear in any part of the input image and our network will be able to successfully classify more often than not.
+This question has been answered above on model selection and parameter tuning. 
+
+Choice of convolution layer: As to why a convolution layer works well for this problem, it is because of translation invariance - as covered in the lesson. Features that uniquely describe a traffic sign may appear in any part of the input image and our network will be able to successfully classify more often than not.
+
+Choice of pooling - I used max pooling to basically downsample the input to the next layer which reduces the number of parameters that need to be tuned in that layer. The benefit here is that this prevents overfitting to the training input.
+
+Choice of Dropout - I've discussed my choice for adding dropout in detail in the previous question. The basic idea is to prevent overfitting and ensuring that the network learns alternate ways of classifying the training set which will come in handy when testing the model against unknown input.
+
+Choice of Activation - I use the RELU activation function in my work. It adds some much needed non-linearity to the network so that we can represent outputs that don't simply vary as a linear function of inputs - i.e learning more complex concepts. Otherwise, having multiple layers makes no sense since they can all be collapsed to a single one mathematically. I used RELU function specifically, because it is computationally simple and just as effective as tanh or sigmoid functions that tensorflow supports.
 
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 
@@ -170,7 +181,7 @@ Here are the results of the prediction - the classes output by the model are on 
 
 ![alt text][image6]
 
-Overall, the model was able to classify 7 out of 8 signs correctly achieving an accuracy of 87.5% on the new images. This is reasonably close to the testing set accuracy of ~93%.
+Overall, the model was able to classify 7 out of 8 signs correctly achieving an accuracy of 87.5% on the new images. This is reasonably close to the testing set accuracy of ~93%. This new image set accuracy shows that the model was slightly overfitting on the training set. The steps taken with adding pooling and dropout seems to have helped overall though as the new image set accuracy isn't too far from the test set accuracy.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
