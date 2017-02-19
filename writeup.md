@@ -149,7 +149,7 @@ Please see the answer for the next question.
 
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
-This question has been answered above on model selection and parameter tuning. 
+This question has been partially answered above while discussing model selection and parameter tuning. Here's the rationale behind some more of my design choices:
 
 Choice of convolution layer: As to why a convolution layer works well for this problem, it is because of translation invariance - as covered in the lesson. Features that uniquely describe a traffic sign may appear in any part of the input image and our network will be able to successfully classify more often than not.
 
